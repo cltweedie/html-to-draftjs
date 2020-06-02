@@ -7,6 +7,8 @@ import htmlToDraft from './library';
 import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './styles.css';
 
+console.log('LIBRARY LOADED');
+
 // in constructor, I use your code above, but I change outputEditorState to inputEditorState
 // in the first Editor, I use this.state.inputEditorState as editorState
 
