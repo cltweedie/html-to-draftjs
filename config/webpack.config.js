@@ -11,9 +11,6 @@ module.exports = {
     library: "htmlToDraftjs",
     libraryTarget: "umd"
   },
-  optimization: {
-    minimizer: [new UglifyJsPlugin()]
-  },
   externals: {
     "draft-js": "draft-js",
     immutable: "immutable"
