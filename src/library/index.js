@@ -23,6 +23,8 @@ function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGe
         return createTextChunk(node, inlineStyle, inEntity);
     }
     if (nodeName === 'liquid') {
+        console.log('html-to-draftjs: Liquid Block');
+        debugger;
         const text = node.textContent;
         return { chunk: { text } };
     }
