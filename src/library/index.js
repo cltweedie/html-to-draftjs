@@ -16,17 +16,11 @@ function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGe
         const value = customChunkGenerator(nodeName, node);
         if (value) {
             const entityId = Entity.__create(value.type, value.mutability, value.data || {});
-            return { chunk: getAtomicBlockChunk(entityId) };
+            return { chunk: getAtomicBlockChunk(entityId, value.textContent) };
         }
     }
     if (nodeName === '#text' && node.textContent !== '\n') {
         return createTextChunk(node, inlineStyle, inEntity);
-    }
-    if (nodeName === 'liquid') {
-        console.log('html-to-draftjs: Liquid Block');
-        debugger;
-        const text = node.textContent;
-        return { chunk: { text } };
     }
     if (nodeName === 'br') {
         return { chunk: getSoftNewlineChunk() };

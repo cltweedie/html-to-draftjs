@@ -63,9 +63,10 @@ export const getBlockDividerChunk = (blockType, depth, data) => {
             }],
     };
 };
-export const getAtomicBlockChunk = (entityId) => {
+export const getAtomicBlockChunk = (entityId, textContent = null) => {
+  const text = textContent ? textContent : '\r ';
     return {
-        text: '\r ',
+        text,
         inlines: [new OrderedSet()],
         entities: [entityId],
         blocks: [{
