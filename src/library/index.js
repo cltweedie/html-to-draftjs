@@ -2,7 +2,16 @@
 import { CharacterMetadata, ContentBlock, genKey, Entity } from 'draft-js';
 import { Map, List, OrderedMap, OrderedSet } from 'immutable';
 import getSafeBodyFromHTML from './getSafeBodyFromHTML';
-import { createTextChunk, getSoftNewlineChunk, getEmptyChunk, getBlockDividerChunk, getFirstBlockChunk, getAtomicBlockChunk, joinChunks, } from './chunkBuilder';
+import {
+  createTextChunk,
+  getSoftNewlineChunk,
+  getEmptyChunk,
+  getBlockDividerChunk,
+  getFirstBlockChunk,
+  getAtomicBlockChunk,
+  joinChunks,
+  getLiquidChunk,
+} from './chunkBuilder';
 import getBlockTypeForTag from './getBlockTypeForTag';
 import processInlineTag from './processInlineTag';
 import getBlockData from './getBlockData';

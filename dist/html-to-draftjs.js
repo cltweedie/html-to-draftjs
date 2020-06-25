@@ -428,7 +428,7 @@ function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGe
 
       if (value.textContent) {
         return {
-          chunk: getLiquidChunk(entityId, value.textContent)
+          chunk: Object(_chunkBuilder__WEBPACK_IMPORTED_MODULE_3__["getLiquidChunk"])(entityId, value.textContent)
         };
       }
 
