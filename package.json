@@ -36,7 +36,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "clean": "rimraf dist",
-    "build": "npm run clean && webpack --mode production --config config/webpack.config.js"
+    "build": "npm run clean && webpack --mode development --config config/webpack.config.js"
   },
   "author": "Jyoti Puri",
   "license": "MIT",
