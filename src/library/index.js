@@ -16,7 +16,10 @@ function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGe
         const value = customChunkGenerator(nodeName, node);
         if (value) {
             const entityId = Entity.__create(value.type, value.mutability, value.data || {});
-            return { chunk: getAtomicBlockChunk(entityId, value.textContent) };
+            if (value.textContent) {
+              return { chunk: getLiquidChunk(entityId, value.textContent) };
+            }
+            return { chunk: getAtomicBlockChunk(entityId) };
         }
     }
     if (nodeName === '#text' && node.textContent !== '\n') {

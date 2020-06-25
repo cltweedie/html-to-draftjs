@@ -100,7 +100,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!*************************************!*\
   !*** ./src/library/chunkBuilder.js ***!
   \*************************************/
-/*! exports provided: getWhitespaceChunk, createTextChunk, getSoftNewlineChunk, getEmptyChunk, getFirstBlockChunk, getBlockDividerChunk, getAtomicBlockChunk, joinChunks */
+/*! exports provided: getWhitespaceChunk, createTextChunk, getSoftNewlineChunk, getEmptyChunk, getFirstBlockChunk, getBlockDividerChunk, getAtomicBlockChunk, getLiquidChunk, joinChunks */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -112,6 +112,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFirstBlockChunk", function() { return getFirstBlockChunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBlockDividerChunk", function() { return getBlockDividerChunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAtomicBlockChunk", function() { return getAtomicBlockChunk; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLiquidChunk", function() { return getLiquidChunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "joinChunks", function() { return joinChunks; });
 /* harmony import */ var immutable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! immutable */ "immutable");
 /* harmony import */ var immutable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(immutable__WEBPACK_IMPORTED_MODULE_0__);
@@ -185,15 +186,27 @@ var getBlockDividerChunk = function getBlockDividerChunk(blockType, depth, data)
   };
 };
 var getAtomicBlockChunk = function getAtomicBlockChunk(entityId) {
+  return {
+    text: '\r ',
+    inlines: [new immutable__WEBPACK_IMPORTED_MODULE_0__["OrderedSet"]()],
+    entities: [entityId],
+    blocks: [{
+      type: 'atomic',
+      depth: 0,
+      data: new immutable__WEBPACK_IMPORTED_MODULE_0__["Map"]({})
+    }]
+  };
+};
+var getLiquidChunk = function getLiquidChunk(entityId) {
   var textContent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  console.log('Text content in getAtomicBlockChunk:', textContent);
+  console.log('Text content in getLiquidChunk:', textContent);
   var text = textContent ? textContent : '\r ';
   return {
     text: text,
     inlines: [new immutable__WEBPACK_IMPORTED_MODULE_0__["OrderedSet"]()],
     entities: [entityId],
     blocks: [{
-      type: 'atomic',
+      type: 'liquid',
       depth: 0,
       data: new immutable__WEBPACK_IMPORTED_MODULE_0__["Map"]({})
     }]
@@ -413,8 +426,14 @@ function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGe
     if (value) {
       var entityId = draft_js__WEBPACK_IMPORTED_MODULE_0__["Entity"].__create(value.type, value.mutability, value.data || {});
 
+      if (value.textContent) {
+        return {
+          chunk: getLiquidChunk(entityId, value.textContent)
+        };
+      }
+
       return {
-        chunk: Object(_chunkBuilder__WEBPACK_IMPORTED_MODULE_3__["getAtomicBlockChunk"])(entityId, value.textContent)
+        chunk: Object(_chunkBuilder__WEBPACK_IMPORTED_MODULE_3__["getAtomicBlockChunk"])(entityId)
       };
     }
   }

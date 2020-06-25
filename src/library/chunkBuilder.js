@@ -63,11 +63,9 @@ export const getBlockDividerChunk = (blockType, depth, data) => {
             }],
     };
 };
-export const getAtomicBlockChunk = (entityId, textContent = null) => {
-    console.log('Text content in getAtomicBlockChunk:', textContent);
-    const text = textContent ? textContent : '\r ';
+export const getAtomicBlockChunk = (entityId) => {
     return {
-        text,
+        text: '\r ',
         inlines: [new OrderedSet()],
         entities: [entityId],
         blocks: [{
@@ -76,6 +74,20 @@ export const getAtomicBlockChunk = (entityId, textContent = null) => {
                 data: new Map({})
             }],
     };
+};
+export const getLiquidChunk = (entityId, textContent = null) => {
+  console.log('Text content in getLiquidChunk:', textContent);
+  const text = textContent ? textContent : '\r ';
+  return {
+      text,
+      inlines: [new OrderedSet()],
+      entities: [entityId],
+      blocks: [{
+              type: 'liquid',
+              depth: 0,
+              data: new Map({})
+          }],
+  };
 };
 export const joinChunks = (A, B) => {
     return {
