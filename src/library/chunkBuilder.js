@@ -10,6 +10,7 @@ export const getWhitespaceChunk = (entityId) => {
     };
 };
 export const createTextChunk = (node, inlineStyle, entityId) => {
+    debugger;
     const text = node.textContent;
     if (text.trim() === '') {
         return { chunk: getWhitespaceChunk(entityId) };

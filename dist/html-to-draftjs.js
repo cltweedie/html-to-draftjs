@@ -128,6 +128,7 @@ var getWhitespaceChunk = function getWhitespaceChunk(entityId) {
   };
 };
 var createTextChunk = function createTextChunk(node, inlineStyle, entityId) {
+  debugger;
   var text = node.textContent;
 
   if (text.trim() === '') {
