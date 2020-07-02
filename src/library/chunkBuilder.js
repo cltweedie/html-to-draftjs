@@ -79,7 +79,7 @@ export const getLiquidChunk = (entityId, textContent = null) => {
   console.log('Text content in getLiquidChunk:', textContent);
   const text = textContent ? textContent : '\r ';
   return {
-      text: `\r${text}\r`,
+      text: `\r${text}`,
       inlines: [new OrderedSet()],
       entities: [entityId],
       blocks: [{
