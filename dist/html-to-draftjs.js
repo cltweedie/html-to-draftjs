@@ -419,15 +419,12 @@ var firstBlock = true;
 
 function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGenerator) {
   var nodeName = node.nodeName.toLowerCase();
+  console.log('nodeName:', nodeName);
 
   if (customChunkGenerator) {
     var value = customChunkGenerator(nodeName, node);
 
     if (value) {
-      console.log('--------------------------');
-      console.log('type:', value.type);
-      console.log('textContent:', value.textContent);
-
       var entityId = draft_js__WEBPACK_IMPORTED_MODULE_0__["Entity"].__create(value.type, value.mutability, value.data || {});
 
       if (value.textContent) {

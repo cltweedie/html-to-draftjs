@@ -21,12 +21,10 @@ const REGEX_NBSP = new RegExp('&nbsp;', 'g');
 let firstBlock = true;
 function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGenerator) {
     const nodeName = node.nodeName.toLowerCase();
+    console.log('nodeName:', nodeName);
     if (customChunkGenerator) {
         const value = customChunkGenerator(nodeName, node);
         if (value) {
-            console.log('--------------------------');
-            console.log('type:', value.type);
-            console.log('textContent:', value.textContent);
             const entityId = Entity.__create(value.type, value.mutability, value.data || {});
             if (value.textContent) {
               return { chunk: getLiquidChunk(entityId, value.textContent) };
