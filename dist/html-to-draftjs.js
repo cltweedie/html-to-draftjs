@@ -202,7 +202,7 @@ var getLiquidChunk = function getLiquidChunk(entityId) {
   console.log('Text content in getLiquidChunk:', textContent);
   var text = textContent ? textContent : '\r ';
   return {
-    text: text,
+    text: "\r".concat(text, "\r"),
     inlines: [new immutable__WEBPACK_IMPORTED_MODULE_0__["OrderedSet"]()],
     entities: [entityId],
     blocks: [{
