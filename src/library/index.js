@@ -24,6 +24,9 @@ function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGe
     if (customChunkGenerator) {
         const value = customChunkGenerator(nodeName, node);
         if (value) {
+            console.log('--------------------------');
+            console.log('type:', value.type);
+            console.log('textContent:', value.textContent);
             const entityId = Entity.__create(value.type, value.mutability, value.data || {});
             if (value.textContent) {
               return { chunk: getLiquidChunk(entityId, value.textContent) };
