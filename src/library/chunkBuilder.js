@@ -97,7 +97,7 @@ export const getHTMLChunk = (entityId, textContent = null) => {
         inlines: [new OrderedSet()],
         entities: [entityId],
         blocks: [{
-                type: 'div',
+                type: 'html',
                 depth: 0,
                 data: new Map({})
             }],

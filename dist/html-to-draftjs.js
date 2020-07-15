@@ -222,7 +222,7 @@ var getHTMLChunk = function getHTMLChunk(entityId) {
     inlines: [new immutable__WEBPACK_IMPORTED_MODULE_0__["OrderedSet"]()],
     entities: [entityId],
     blocks: [{
-      type: 'div',
+      type: 'html',
       depth: 0,
       data: new immutable__WEBPACK_IMPORTED_MODULE_0__["Map"]({})
     }]
