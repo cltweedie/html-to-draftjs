@@ -100,7 +100,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!*************************************!*\
   !*** ./src/library/chunkBuilder.js ***!
   \*************************************/
-/*! exports provided: getWhitespaceChunk, createTextChunk, getSoftNewlineChunk, getEmptyChunk, getFirstBlockChunk, getBlockDividerChunk, getAtomicBlockChunk, getLiquidChunk, joinChunks */
+/*! exports provided: getWhitespaceChunk, createTextChunk, getSoftNewlineChunk, getEmptyChunk, getFirstBlockChunk, getBlockDividerChunk, getAtomicBlockChunk, getLiquidChunk, getHTMLChunk, joinChunks */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -113,6 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBlockDividerChunk", function() { return getBlockDividerChunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAtomicBlockChunk", function() { return getAtomicBlockChunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLiquidChunk", function() { return getLiquidChunk; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getHTMLChunk", function() { return getHTMLChunk; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "joinChunks", function() { return joinChunks; });
 /* harmony import */ var immutable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! immutable */ "immutable");
 /* harmony import */ var immutable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(immutable__WEBPACK_IMPORTED_MODULE_0__);
@@ -207,6 +208,21 @@ var getLiquidChunk = function getLiquidChunk(entityId) {
     entities: [entityId],
     blocks: [{
       type: 'liquid',
+      depth: 0,
+      data: new immutable__WEBPACK_IMPORTED_MODULE_0__["Map"]({})
+    }]
+  };
+};
+var getHTMLChunk = function getHTMLChunk(entityId) {
+  var textContent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  console.log('Text content in getHTMLChunk:', textContent);
+  var text = textContent ? textContent : '\r ';
+  return {
+    text: "\r".concat(text),
+    inlines: [new immutable__WEBPACK_IMPORTED_MODULE_0__["OrderedSet"]()],
+    entities: [entityId],
+    blocks: [{
+      type: 'htmlblock',
       depth: 0,
       data: new immutable__WEBPACK_IMPORTED_MODULE_0__["Map"]({})
     }]
@@ -419,6 +435,7 @@ var firstBlock = true;
 
 function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGenerator) {
   var nodeName = node.nodeName.toLowerCase();
+  console.log('nodeName:', nodeName);
 
   if (customChunkGenerator) {
     var value = customChunkGenerator(nodeName, node);
@@ -429,6 +446,12 @@ function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGe
       console.log('textContent:', value.textContent);
 
       var entityId = draft_js__WEBPACK_IMPORTED_MODULE_0__["Entity"].__create(value.type, value.mutability, value.data || {});
+
+      if (value.type === 'htmlblock') {
+        return {
+          chunk: Object(_chunkBuilder__WEBPACK_IMPORTED_MODULE_3__["getHTMLChunk"])(entityId, value.htmlContent)
+        };
+      }
 
       if (value.textContent) {
         return {

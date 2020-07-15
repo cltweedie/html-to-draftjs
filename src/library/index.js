@@ -11,6 +11,7 @@ import {
   getAtomicBlockChunk,
   joinChunks,
   getLiquidChunk,
+  getHTMLChunk,
 } from './chunkBuilder';
 import getBlockTypeForTag from './getBlockTypeForTag';
 import processInlineTag from './processInlineTag';
@@ -21,6 +22,7 @@ const REGEX_NBSP = new RegExp('&nbsp;', 'g');
 let firstBlock = true;
 function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGenerator) {
     const nodeName = node.nodeName.toLowerCase();
+    console.log('nodeName:', nodeName);
     if (customChunkGenerator) {
         const value = customChunkGenerator(nodeName, node);
         if (value) {
@@ -28,6 +30,9 @@ function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGe
             console.log('type:', value.type);
             console.log('textContent:', value.textContent);
             const entityId = Entity.__create(value.type, value.mutability, value.data || {});
+            if (value.type === 'htmlblock') {
+              return { chunk: getHTMLChunk(entityId, value.htmlContent) };
+            }
             if (value.textContent) {
               return { chunk: getLiquidChunk(entityId, value.textContent) };
             }
