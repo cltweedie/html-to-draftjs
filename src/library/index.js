@@ -30,7 +30,7 @@ function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGe
             console.log('type:', value.type);
             console.log('textContent:', value.textContent);
             const entityId = Entity.__create(value.type, value.mutability, value.data || {});
-            if (nodeName === 'div') {
+            if (value.type === 'htmlblock') {
               return { chunk: getHTMLChunk(entityId, value.htmlContent) };
             }
             if (value.textContent) {

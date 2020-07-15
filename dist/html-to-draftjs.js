@@ -447,7 +447,7 @@ function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGe
 
       var entityId = draft_js__WEBPACK_IMPORTED_MODULE_0__["Entity"].__create(value.type, value.mutability, value.data || {});
 
-      if (nodeName === 'div') {
+      if (value.type === 'htmlblock') {
         return {
           chunk: Object(_chunkBuilder__WEBPACK_IMPORTED_MODULE_3__["getHTMLChunk"])(entityId, value.htmlContent)
         };
