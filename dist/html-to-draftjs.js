@@ -419,6 +419,7 @@ var firstBlock = true;
 
 function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGenerator) {
   var nodeName = node.nodeName.toLowerCase();
+  console.log('nodeName:', nodeName);
 
   if (customChunkGenerator) {
     var value = customChunkGenerator(nodeName, node);
