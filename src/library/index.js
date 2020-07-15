@@ -21,6 +21,7 @@ const REGEX_NBSP = new RegExp('&nbsp;', 'g');
 let firstBlock = true;
 function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGenerator) {
     const nodeName = node.nodeName.toLowerCase();
+    console.log('nodeName:', nodeName);
     if (customChunkGenerator) {
         const value = customChunkGenerator(nodeName, node);
         if (value) {
