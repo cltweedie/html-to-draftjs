@@ -11,6 +11,7 @@ import {
   getAtomicBlockChunk,
   joinChunks,
   getLiquidChunk,
+  getHTMLChunk,
 } from './chunkBuilder';
 import getBlockTypeForTag from './getBlockTypeForTag';
 import processInlineTag from './processInlineTag';
@@ -29,6 +30,9 @@ function genFragment(node, inlineStyle, depth, lastList, inEntity, customChunkGe
             console.log('type:', value.type);
             console.log('textContent:', value.textContent);
             const entityId = Entity.__create(value.type, value.mutability, value.data || {});
+            if (nodeName === 'div') {
+              return { chunk: getHTMLChunk(entityId, value.htmlContent) };
+            }
             if (value.textContent) {
               return { chunk: getLiquidChunk(entityId, value.textContent) };
             }

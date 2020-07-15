@@ -89,6 +89,20 @@ export const getLiquidChunk = (entityId, textContent = null) => {
           }],
   };
 };
+export const getHTMLChunk = (entityId, textContent = null) => {
+    console.log('Text content in getHTMLChunk:', textContent);
+    const text = textContent ? textContent : '\r ';
+    return {
+        text: `\r${text}`,
+        inlines: [new OrderedSet()],
+        entities: [entityId],
+        blocks: [{
+                type: 'div',
+                depth: 0,
+                data: new Map({})
+            }],
+    };
+  };
 export const joinChunks = (A, B) => {
     return {
         text: A.text + B.text,
