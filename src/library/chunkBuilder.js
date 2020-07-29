@@ -78,10 +78,16 @@ export const getAtomicBlockChunk = (entityId) => {
 export const getLiquidChunk = (entityId, textContent = null) => {
   console.log('Text content in getLiquidChunk:', textContent);
   const text = textContent ? textContent : '\r ';
+  const inlines = [];
+  const entities = [];
+  text.split('').forEach(() => {
+    inlines.push(new OrderedSet());
+    entities.push(entityId);
+  });
   return {
       text: `\r${text}`,
-      inlines: [new OrderedSet()],
-      entities: [entityId],
+      inlines,
+      entities,
       blocks: [{
               type: 'liquid',
               depth: 0,

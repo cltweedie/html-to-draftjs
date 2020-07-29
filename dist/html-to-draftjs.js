@@ -201,10 +201,16 @@ var getLiquidChunk = function getLiquidChunk(entityId) {
   var textContent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   console.log('Text content in getLiquidChunk:', textContent);
   var text = textContent ? textContent : '\r ';
+  var inlines = [];
+  var entities = [];
+  text.split('').forEach(function () {
+    inlines.push(new immutable__WEBPACK_IMPORTED_MODULE_0__["OrderedSet"]());
+    entities.push(entityId);
+  });
   return {
     text: "\r".concat(text),
-    inlines: [new immutable__WEBPACK_IMPORTED_MODULE_0__["OrderedSet"]()],
-    entities: [entityId],
+    inlines: inlines,
+    entities: entities,
     blocks: [{
       type: 'liquid',
       depth: 0,
