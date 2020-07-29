@@ -405,6 +405,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _processInlineTag__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./processInlineTag */ "./src/library/processInlineTag.js");
 /* harmony import */ var _getBlockData__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./getBlockData */ "./src/library/getBlockData.js");
 /* harmony import */ var _getEntityId__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./getEntityId */ "./src/library/getEntityId.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 
 
 
@@ -572,13 +580,18 @@ function htmlToDraft(html, customChunkGenerator) {
       }
     });
     var start = 0;
+
+    var dupeChunk = _toConsumableArray(chunk);
+
     return {
-      contentBlocks: chunk.text.split('\r').map(function (textBlock, ii) {
-        console.log('textBlock:', textBlock);
-        console.log('textBlock.length:', textBlock.length);
+      contentBlocks: dupeChunk.text.split('\r').map(function (textBlock, ii) {
+        console.log('chunk:', chunk);
+        console.log('dupeCunk:', dupeChunk); // console.log('textBlock:', textBlock);
+        // console.log('textBlock.length:', textBlock.length);
+
         var end = start + textBlock.length;
-        var inlines = chunk && chunk.inlines.slice(start, end);
-        var entities = chunk && chunk.entities.slice(start, end);
+        var inlines = dupeChunk && dupeChunk.inlines.slice(start, end);
+        var entities = dupeChunk && dupeChunk.entities.slice(start, end);
         var characterList = new immutable__WEBPACK_IMPORTED_MODULE_1__["List"](inlines.map(function (style, index) {
           var data = {
             style: style,
@@ -594,9 +607,9 @@ function htmlToDraft(html, customChunkGenerator) {
         start = end;
         return new draft_js__WEBPACK_IMPORTED_MODULE_0__["ContentBlock"]({
           key: Object(draft_js__WEBPACK_IMPORTED_MODULE_0__["genKey"])(),
-          type: chunk && chunk.blocks[ii] && chunk.blocks[ii].type || 'unstyled',
-          depth: chunk && chunk.blocks[ii] && chunk.blocks[ii].depth,
-          data: chunk && chunk.blocks[ii] && chunk.blocks[ii].data || new immutable__WEBPACK_IMPORTED_MODULE_1__["Map"]({}),
+          type: dupeChunk && dupeChunk.blocks[ii] && dupeChunk.blocks[ii].type || 'unstyled',
+          depth: dupeChunk && dupeChunk.blocks[ii] && dupeChunk.blocks[ii].depth,
+          data: dupeChunk && dupeChunk.blocks[ii] && dupeChunk.blocks[ii].data || new immutable__WEBPACK_IMPORTED_MODULE_1__["Map"]({}),
           text: textBlock,
           characterList: characterList
         });

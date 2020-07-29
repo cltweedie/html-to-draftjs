@@ -129,14 +129,19 @@ export default function htmlToDraft(html, customChunkGenerator) {
             }
         });
         let start = 0;
+
+        const dupeChunk = [ ...chunk ];
+
         return {
-            contentBlocks: chunk.text.split('\r')
+            contentBlocks: dupeChunk.text.split('\r')
                 .map((textBlock, ii) => {
-                console.log('textBlock:', textBlock);
-                console.log('textBlock.length:', textBlock.length);
+                console.log('chunk:', chunk);
+                console.log('dupeCunk:', dupeChunk);
+                // console.log('textBlock:', textBlock);
+                // console.log('textBlock.length:', textBlock.length);
                 const end = start + textBlock.length;
-                const inlines = chunk && chunk.inlines.slice(start, end);
-                const entities = chunk && chunk.entities.slice(start, end);
+                const inlines = dupeChunk && dupeChunk.inlines.slice(start, end);
+                const entities = dupeChunk && dupeChunk.entities.slice(start, end);
                 const characterList = new List(inlines.map((style, index) => {
                     const data = { style, entity: null };
                     if (entities[index]) {
@@ -147,9 +152,9 @@ export default function htmlToDraft(html, customChunkGenerator) {
                 start = end;
                 return new ContentBlock({
                     key: genKey(),
-                    type: (chunk && chunk.blocks[ii] && chunk.blocks[ii].type) || 'unstyled',
-                    depth: chunk && chunk.blocks[ii] && chunk.blocks[ii].depth,
-                    data: (chunk && chunk.blocks[ii] && chunk.blocks[ii].data) || new Map({}),
+                    type: (dupeChunk && dupeChunk.blocks[ii] && dupeChunk.blocks[ii].type) || 'unstyled',
+                    depth: dupeChunk && dupeChunk.blocks[ii] && dupeChunk.blocks[ii].depth,
+                    data: (dupeChunk && dupeChunk.blocks[ii] && dupeChunk.blocks[ii].data) || new Map({}),
                     text: textBlock,
                     characterList,
                 });
