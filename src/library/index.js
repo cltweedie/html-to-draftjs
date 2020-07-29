@@ -130,7 +130,7 @@ export default function htmlToDraft(html, customChunkGenerator) {
         });
         let start = 0;
 
-        const dupeChunk = [ ...chunk ];
+        const dupeChunk = { ...chunk };
 
         return {
             contentBlocks: dupeChunk.text.split('\r')
