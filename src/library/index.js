@@ -132,6 +132,8 @@ export default function htmlToDraft(html, customChunkGenerator) {
         return {
             contentBlocks: chunk.text.split('\r')
                 .map((textBlock, ii) => {
+                console.log('textBlock:', textBlock);
+                console.log('textBlock.length:', textBlock.length);
                 const end = start + textBlock.length;
                 const inlines = chunk && chunk.inlines.slice(start, end);
                 const entities = chunk && chunk.entities.slice(start, end);

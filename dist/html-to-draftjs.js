@@ -574,6 +574,8 @@ function htmlToDraft(html, customChunkGenerator) {
     var start = 0;
     return {
       contentBlocks: chunk.text.split('\r').map(function (textBlock, ii) {
+        console.log('textBlock:', textBlock);
+        console.log('textBlock.length:', textBlock.length);
         var end = start + textBlock.length;
         var inlines = chunk && chunk.inlines.slice(start, end);
         var entities = chunk && chunk.entities.slice(start, end);
