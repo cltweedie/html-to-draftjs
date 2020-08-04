@@ -89,7 +89,7 @@ export const getLiquidChunk = (entityId, textContent = null) => {
       inlines,
       entities,
       blocks: [{
-              type: 'liquid',
+              type: 'htmlblock',
               depth: 0,
               data: new Map({})
           }],

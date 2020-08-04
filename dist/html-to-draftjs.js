@@ -212,7 +212,7 @@ var getLiquidChunk = function getLiquidChunk(entityId) {
     inlines: inlines,
     entities: entities,
     blocks: [{
-      type: 'liquid',
+      type: 'htmlblock',
       depth: 0,
       data: new immutable__WEBPACK_IMPORTED_MODULE_0__["Map"]({})
     }]
