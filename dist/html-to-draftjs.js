@@ -207,7 +207,7 @@ var getLiquidChunk = function getLiquidChunk(entityId) {
     entities.push(entityId);
   });
   return {
-    text: "".concat(text),
+    text: "\r".concat(text),
     inlines: inlines,
     entities: entities,
     blocks: [{

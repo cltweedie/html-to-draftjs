@@ -84,7 +84,7 @@ export const getLiquidChunk = (entityId, textContent = null) => {
     entities.push(entityId);
   });
   return {
-      text: `${text}`,
+      text: `\r${text}`,
       inlines,
       entities,
       blocks: [{
