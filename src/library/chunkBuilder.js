@@ -76,7 +76,6 @@ export const getAtomicBlockChunk = (entityId) => {
     };
 };
 export const getLiquidChunk = (entityId, textContent = null) => {
-  console.log('Text content in getLiquidChunk:', textContent);
   const text = textContent ? textContent : '\r ';
   const inlines = [];
   const entities = [];
@@ -85,7 +84,7 @@ export const getLiquidChunk = (entityId, textContent = null) => {
     entities.push(entityId);
   });
   return {
-      text: `\r${text}`,
+      text: `${text}`,
       inlines,
       entities,
       blocks: [{
